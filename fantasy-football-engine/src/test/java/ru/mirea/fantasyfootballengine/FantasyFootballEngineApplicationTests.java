@@ -1,10 +1,10 @@
-package ru.mirea.fantasyfootballbackend;
+package ru.mirea.fantasyfootballengine;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FantasyFootballBackendApplicationTests {
+class FantasyFootballEngineApplicationTests {
 
     @Test
     void contextLoads() {

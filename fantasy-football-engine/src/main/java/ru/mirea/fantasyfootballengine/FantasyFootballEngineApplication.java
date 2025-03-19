@@ -1,13 +1,13 @@
-package ru.mirea.fantasyfootballbackend;
+package ru.mirea.fantasyfootballengine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FantasyFootballBackendApplication {
+public class FantasyFootballEngineApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FantasyFootballBackendApplication.class, args);
+        SpringApplication.run(FantasyFootballEngineApplication.class, args);
     }
 
 }

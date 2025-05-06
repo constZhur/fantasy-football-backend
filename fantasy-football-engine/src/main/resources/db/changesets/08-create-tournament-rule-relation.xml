@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="08-create-tournament-rule-relation" author="constZhur">
+        <createTable tableName="tournament_rule_relation">
+            <column name="tournament_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rule_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="tournament_rule_relation"
+                                 baseColumnNames="tournament_id"
+                                 referencedTableName="tournament"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_tournament_rule_relation_tournament_id"/>
+        <addForeignKeyConstraint baseTableName="tournament_rule_relation"
+                                 baseColumnNames="rule_id"
+                                 referencedTableName="rule"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_tournament_rule_relation_rule_id"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,25 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="04-create-footballer" author="constZhur">
+        <createTable tableName="footballer">
+            <column name="id" type="UUID" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="position" type="VARCHAR(10)"/>
+            <column name="goals" type="SMALLINT"/>
+            <column name="assists" type="SMALLINT"/>
+            <column name="own_goals" type="SMALLINT"/>
+            <column name="yellow_cards" type="SMALLINT"/>
+            <column name="red_cards" type="SMALLINT"/>
+            <column name="minutes_played" type="SMALLINT"/>
+            <column name="clean_sheets" type="SMALLINT"/>
+            <column name="best_player_awards" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

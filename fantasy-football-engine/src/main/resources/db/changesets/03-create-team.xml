@@ -1,0 +1,31 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="03-create-team" author="constZhur">
+        <createTable tableName="team">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tournament_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)"/>
+            <column name="owner_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="team"
+                                 baseColumnNames="tournament_id"
+                                 referencedTableName="tournament"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_team_tournament_id"/>
+        <addForeignKeyConstraint baseTableName="team"
+                                 baseColumnNames="owner_id"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_team_owner_id"/>
+    </changeSet>
+
+</databaseChangeLog>

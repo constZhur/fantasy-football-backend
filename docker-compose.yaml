@@ -1,0 +1,83 @@
+services:
+  app:
+    image: fantasy-football-backend
+    container_name: fantasy-football-backend
+    build:
+      context: /fantasy-football-engine
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    depends_on:
+      - postgres
+      - elasticsearch
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/fantasy-football-db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_ELASTICSEARCH_URIS=elasticsearch:9200
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 500s
+      timeout: 30s
+      retries: 10
+    restart: unless-stopped
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.22
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q 'status\":\"green'"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: fantasy-football-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  liquibase-migrations:
+    image: liquibase/liquibase:4.25
+#    depends_on:
+##      - postgres
+    command:
+      - --changelog-file=changelog-master.xml
+      - --driver=org.postgresql.Driver
+      - --url=jdbc:postgresql://localhost:5432/fantasy-football-db
+      - --username=postgres
+      - --password=postgres
+      - --log-level=debug
+      - update
+    volumes:
+      - ./fantasy-football-engine/src/main/resources/db:/liquibase/changelog
+#    networks:
+#      - backend
+
+volumes:
+  postgresql: {}
+
+networks:
+  backend: {}

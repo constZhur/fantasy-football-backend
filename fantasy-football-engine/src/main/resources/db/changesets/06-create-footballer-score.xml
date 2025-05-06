@@ -1,0 +1,28 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="06-create-footballer-score" author="constZhur">
+        <createTable tableName="footballer_score">
+            <column name="footballer_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tournament_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="score" type="INTEGER"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="footballer_score"
+                                 baseColumnNames="footballer_id"
+                                 referencedTableName="footballer"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_footballer_score_footballer_id"/>
+        <addForeignKeyConstraint baseTableName="footballer_score"
+                                 baseColumnNames="tournament_id"
+                                 referencedTableName="tournament"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_footballer_score_tournament_id"/>
+    </changeSet>
+
+</databaseChangeLog>

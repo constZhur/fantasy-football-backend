@@ -1,0 +1,28 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="05-create-footballer-team-relation" author="constZhur">
+        <createTable tableName="footballer_team_relation">
+            <column name="footballer_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="team_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_capitan" type="BOOLEAN"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="footballer_team_relation"
+                                 baseColumnNames="footballer_id"
+                                 referencedTableName="footballer"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_footballer_team_relation_footballer_id"/>
+        <addForeignKeyConstraint baseTableName="footballer_team_relation"
+                                 baseColumnNames="team_id"
+                                 referencedTableName="team"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_footballer_team_relation_team_id"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,45 @@
+spring.application.name: fantasy-football-auth
+
+server.port: 8090
+
+spring.security.oauth2.client:
+  registration.github:
+    client-id: Ov23liyVjYLpq1fZy97t
+    client-secret: 7afe7b3ac85948eceba078de350ccdd714ed6532
+    authorization-grant-type: authorization_code
+    redirect-uri: "http://localhost:80/login/oauth2/code/{registrationId}"
+    scope: read:user,user:email
+  provider.github:
+    authorization-uri: https://github.com/login/oauth/authorize
+    token-uri: https://github.com/login/oauth/access_token
+    user-info-uri: https://api.github.com/user
+    user-name-attribute: login
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fantasy-football-db
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  cloud:
+    config:
+      import-check:
+        enabled: false
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://${DISCOVERY_SERVICE_NAME}:${DISCOVERY_SERVICE_PORT}/eureka/
+    healthcheck:
+      enabled: true

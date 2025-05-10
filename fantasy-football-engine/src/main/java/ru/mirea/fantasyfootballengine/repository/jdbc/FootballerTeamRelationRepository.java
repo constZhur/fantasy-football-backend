@@ -9,4 +9,5 @@ import java.util.UUID;
 
 public interface FootballerTeamRelationRepository extends JpaRepository<FootballerTeamRelation, FootballerTeamRelationId> {
     List<FootballerTeamRelation> findAllByTeamId(UUID teamId);
+    void deleteByTeamIdAndFootballerId(UUID teamId, UUID footballerId);
 }

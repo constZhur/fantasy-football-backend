@@ -2,6 +2,7 @@ package ru.mirea.fantasyfootballengine.entity.jdbc;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
@@ -14,7 +15,9 @@ import java.util.UUID;
 @Table(name = "footballer")
 public class Footballer {
     @Id
-    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     @Column(name = "first_name")
@@ -49,4 +52,7 @@ public class Footballer {
 
     @Column(name = "best_player_awards")
     private short bestPlayerAwards;
+
+    @Column(name = "cost")
+    private short cost;
 }

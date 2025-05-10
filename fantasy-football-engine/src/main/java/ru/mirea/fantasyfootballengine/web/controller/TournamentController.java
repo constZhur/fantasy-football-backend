@@ -23,5 +23,7 @@ public class TournamentController {
         Tournament tournament = tournamentService.createTournament(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(tournament);
     }
+
+
 }
 

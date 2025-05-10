@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: fantasy-football-api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        # Auth service
+        - id: auth-service
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/auth/**
+
+        # Tournament service
+        - id: tournament-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/tournaments/**
+
+        # Rule service
+        - id: rule-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/rules/**
+
+        # Team service
+        - id: team-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/teams/**
+
+        # Footballer service
+        - id: footballer-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/footballers/**
+
+        # Score service
+        - id: score-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/scores/**
+
+server:
+  port: 80
+
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+
+api:
+  auth:
+    host: http://localhost:8090

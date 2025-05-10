@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface TeamRepository extends JpaRepository<Team, UUID> {
     List<Team> findAllByTournamentId(UUID tournamentId);
+    List<Team> findAllByOwnerId(UUID ownerId);
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
@@ -14,7 +15,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Team {
     @Id
-    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     @Column(name = "name")
@@ -22,6 +25,9 @@ public class Team {
 
     @Column(name = "points")
     private Integer points;
+
+    @Column(name = "budget")
+    private Integer budget;
 
     @ManyToOne
     @JoinColumn(name = "tournament_id")

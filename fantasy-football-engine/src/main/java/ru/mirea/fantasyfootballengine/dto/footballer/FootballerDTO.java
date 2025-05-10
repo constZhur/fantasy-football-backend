@@ -11,5 +11,6 @@ public record FootballerDTO(
         short redCards,
         short minutesPlayed,
         short cleanSheets,
-        short bestPlayerAwards
+        short bestPlayerAwards,
+        short cost
 ) {}
